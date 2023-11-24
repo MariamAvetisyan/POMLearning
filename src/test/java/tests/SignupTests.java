@@ -17,7 +17,6 @@ public class SignupTests extends BaseTest {
     @Test
     void SignupTest() throws InterruptedException {
         SoftAssert softAssert = new SoftAssert();
-        WebDriver driver = setupWebDriver("chrome");
 
         Signup_LoginPage loginPage = new Signup_LoginPage(driver);
         loginPage.openURL();

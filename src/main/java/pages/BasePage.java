@@ -1,8 +1,10 @@
 package pages;
 
+import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,6 +34,10 @@ public abstract class BasePage {
         getClickableElement(locator).click();
     }
 
+    public void clickOnElement(WebElement element) {
+        element.click();
+    }
+
     public void sendKeysOnElement(By locator, String name) {
         getElement(locator).sendKeys(name);
     }
@@ -45,19 +51,31 @@ public abstract class BasePage {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+
     WebElement getClickableElement(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
+
     boolean isElementVisible(By locator, Duration duration) {
         WebDriverWait wait = new WebDriverWait(driver, duration);
         return wait.until(ExpectedConditions.visibilityOf(getElement(locator))).isDisplayed();
     }
+
+    boolean isElementVisible(WebElement element) {
+        return element.isDisplayed();
+    }
+
+    public void  moveToElement(By locator){
+        Actions actions = new Actions(driver);
+        actions.moveToElement(getElement(locator)).perform();
+    }
     public boolean isCheckboxSelected(By locator) {
         return getVisibleElement(locator).isSelected();
     }
-    public void setCheckboxState(By locator,boolean check) {
-        if(isCheckboxSelected(locator) != check){
+
+    public void setCheckboxState(By locator, boolean check) {
+        if (isCheckboxSelected(locator) != check) {
             clickOnElement(locator);
         }
     }

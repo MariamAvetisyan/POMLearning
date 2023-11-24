@@ -2,11 +2,20 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends BasePage {
     public HomePage(WebDriver driver) {
         super.driver = driver;
+        PageFactory.initElements(driver, this);
     }
+
+    @FindBy(xpath = "//*[contains(text(),'Signup / Login')]")
+    WebElement signUpLogin;
+
+    private static final By FIRST_PICTURE = By.cssSelector("[src=\"/get_product_picture/31\"]");
 
     private static final By SIGNUPLOGIN = By.xpath("//*[contains(text(),'Signup / Login')]");
     private static final By USERSIGNEDICON = By.xpath("//*[contains(text(),'Logged')]");
@@ -19,7 +28,7 @@ public class HomePage extends BasePage {
     }
 
     public void clickonSignUpLoginbutton() {
-        clickOnElement(SIGNUPLOGIN);
+        clickOnElement(signUpLogin);
     }
 
     public void displayedSignedIcon() {
@@ -32,6 +41,9 @@ public class HomePage extends BasePage {
 
     public void deleteAccount() {
         clickOnElement(DELETEACCOUNT);
+    }
+    public void hoverFirstProduct(){
+        moveToElement(FIRST_PICTURE);
     }
 
 }
